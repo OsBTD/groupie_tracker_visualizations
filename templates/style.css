@@ -21,7 +21,7 @@ body {
     align-items: center;
     margin-top: 0.2%;
     margin-left: 0.5%;
-    padding-bottom: 2%;
+    padding-bottom: 3.5%;
 
 }
 
@@ -67,10 +67,11 @@ button {
     opacity: 0;
     transition: opacity 0.3s ease;
     pointer-events: none;
-}
+} */
 
-:is(body:not([scroll="0"])) .Menu::after {
+/* :is(body:not([scroll="0"])) .Menu::after {
     opacity: 1;
+    filter: brightness(-2%);
 } */
 
 .Title {
@@ -81,33 +82,53 @@ button {
     margin-top: -2%;
     margin-left: 1.5%;
 }
-
-.Home:hover {
-    content: url('/static/assets/Home_Active.svg');
+.Home img{
+    width: 90%;
+}
+.Readme img{
+    width: 90%;
+}
+.About img{
+    width: 90%;
 }
 
-.Home:active {
+.Home:hover img {
     content: url('/static/assets/Home_Hover.svg');
+    width: 90%;
+}
+
+.Home:active img {
+    content: url('/static/assets/Home_Hover.svg');
+    width: 90%;
+
 
 }
 
-.About:hover {
-    content: url('/static/assets/About_Active.svg');
-
-}
-
-.About:active {
+.About:hover img {
     content: url('/static/assets/About_Hover.svg');
+    width: 90%;
+
 
 }
 
-.Readme:hover {
-    content: url('/static/assets/Readme_Active.svg');
+.About:active img {
+    content: url('/static/assets/About_Hover.svg');
+    width: 90%;
+
 
 }
 
-.Readme:active {
+.Readme:hover img {
     content: url('/static/assets/Readme_Hover.svg');
+    width: 90%;
+
+
+}
+
+.Readme:active img {
+    content: url('/static/assets/Readme_Hover.svg');
+    width: 90%;
+
 
 }
 
@@ -125,11 +146,11 @@ button {
     justify-content: center;
     align-items: center;
     margin-left: 0.5%;
-    margin-top: -3%;
 }
 
 /* Left section */
 .left-section {
+    margin-top: -36%;
     width: 600px;
 }
 
