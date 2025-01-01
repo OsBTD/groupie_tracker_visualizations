@@ -9,15 +9,13 @@ body {
     min-height: 100vh;
     display: grid;
     grid-template-rows: auto, 1fr;
-    background-image: url('/static/assets/Wallpaper7.jpg');
+    background-image: url('/static/assets/Wallpaper999.jpeg');
     background-size: cover;
     background-repeat: no-repeat;
 }
 
 /*TOP SECTION*/
 .top-section {
-    background-image: url('/static/assets/Banner_Container.svg');
-    background-repeat: no-repeat;
     grid-row: 1;
     justify-content: center;
     align-items: center;
@@ -138,6 +136,9 @@ button {
 /*Bottom SECTION*/
 
 .bottom-section {
+    background-color: #141414c4;
+    background-position: top, left;
+    border-radius: 50px;
     grid-row: 2;
     min-height: 100vh;
     display: grid;
@@ -147,19 +148,17 @@ button {
     justify-content: center;
     align-items: center;
     margin-left: 0.5%;
-    background-image: url('/static/assets/BodyContainer_Faded.svg');
-    background-repeat: no-repeat;
-
+    margin-top: -20%;
 }
 
 /* Left section */
 .left-section {
-    margin-top: -36%;
+    margin-top: 50%;
     width: 600px;
 }
 
 .cards-container {
-    height: calc((80px + 2rem) * 5 + 1rem);
+    height: calc((80px + 2rem) * 10 + 1rem);
     overflow-y: auto;
     padding-right: 1rem;
     display: flex;
@@ -197,12 +196,13 @@ button {
 .right-section {
     background: rgba(255, 255, 255, 0.797);
     border-radius: 12px;
-    padding: 2rem;
+    padding: 2rem 2rem 2rem 2rem;
     height: calc(100vh - 4rem);
     overflow-y: auto;
 }
 
 .artist-details {
+    padding-right: 2rem;
     display: none;
 }
 

@@ -56,9 +56,21 @@ func main() {
 			artists[i].DatesLocations = relation
 		}
 	}
+	tmpl := template.Must(template.ParseFiles("templates/index.html"))
+	tmpl2 := template.Must(template.ParseFiles("templates/error.html"))
 
-	tmpl := template.Must(template.ParseFiles("templates/index3.html"))
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != "GET" {
+			data := map[string]any{"code": http.StatusMethodNotAllowed, "message": "page not found "}
+			w.WriteHeader(http.StatusMethodNotAllowed)
+			tmpl2.Execute(w, data)
+		} else if r.URL.Path != "/" {
+			data := map[string]any{"code": http.StatusNotFound, "message": "page not found "}
+			w.WriteHeader(http.StatusNotFound)
+			tmpl2.Execute(w, data)
+
+		}
+
 		tmpl.Execute(w, artists)
 	})
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("templates"))))
