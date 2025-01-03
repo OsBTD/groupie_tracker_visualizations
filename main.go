@@ -6,6 +6,7 @@ import (
 	"html/template"
 	"io"
 	"net/http"
+	"strconv"
 )
 
 type Artists struct {
@@ -39,6 +40,15 @@ func fetchData(url string, target interface{}) error {
 	return json.Unmarshal(data, target)
 }
 
+func checkname(name string, artists []Artists) bool {
+	for _, artist := range artists {
+		if artist.Name == name {
+			return true
+		}
+	}
+	return false
+}
+
 func main() {
 	artists := []Artists{}
 	err := fetchData("https://groupietrackers.herokuapp.com/api/artists", &artists)
@@ -61,14 +71,17 @@ func main() {
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != "GET" {
-			data := map[string]any{"code": http.StatusMethodNotAllowed, "message": "page not found "}
+			data := "Error " + strconv.Itoa(http.StatusMethodNotAllowed) + ":  Method not allowed."
 			w.WriteHeader(http.StatusMethodNotAllowed)
 			tmpl2.Execute(w, data)
-		} else if r.URL.Path != "/" {
-			data := map[string]any{"code": http.StatusNotFound, "message": "page not found "}
+			return
+		}
+
+		if r.URL.Path != "/" {
+			data := "Error " + strconv.Itoa(http.StatusNotFound) + ":  Page not found."
 			w.WriteHeader(http.StatusNotFound)
 			tmpl2.Execute(w, data)
-
+			return
 		}
 
 		tmpl.Execute(w, artists)

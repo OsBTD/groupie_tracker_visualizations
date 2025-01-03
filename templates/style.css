@@ -136,7 +136,6 @@ button {
 /*Bottom SECTION*/
 
 .bottom-section {
-    background-color: #141414c4;
     background-position: top, left;
     border-radius: 50px;
     grid-row: 2;
@@ -297,3 +296,6 @@ button {
     background: #888888b9;
     border-radius: 4px;
 }
+
+
+/* @media(max-width : 1500px) {} */

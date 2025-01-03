@@ -83,5 +83,23 @@
     </div>
 
 </body>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        function handleFragmentCheck() {
+            const fragment = decodeURIComponent(window.location.hash.substring(8)); 
+            if (fragment) {
+                const artistDetailElement = document.getElementById(`artist-${fragment}`);
+                if (!artistDetailElement) {
+                    window.location.href = "/notfound";
+                }
+            }
+        }
+
+        handleFragmentCheck();
+
+        window.addEventListener('hashchange', handleFragmentCheck);
+    });
+</script>
+
 
 </html>
