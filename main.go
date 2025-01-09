@@ -40,15 +40,6 @@ func fetchData(url string, target interface{}) error {
 	return json.Unmarshal(data, target)
 }
 
-func checkname(name string, artists []Artists) bool {
-	for _, artist := range artists {
-		if artist.Name == name {
-			return true
-		}
-	}
-	return false
-}
-
 func main() {
 	artists := []Artists{}
 	err := fetchData("https://groupietrackers.herokuapp.com/api/artists", &artists)
