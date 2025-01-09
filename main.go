@@ -68,6 +68,8 @@ func main() {
 	}
 	tmpl := template.Must(template.ParseFiles("templates/index.html"))
 	tmpl2 := template.Must(template.ParseFiles("templates/error.html"))
+	about := template.Must(template.ParseFiles("templates/about.html"))
+	readme := template.Must(template.ParseFiles("templates/readme.html"))
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != "GET" {
@@ -86,6 +88,41 @@ func main() {
 
 		tmpl.Execute(w, artists)
 	})
+	http.HandleFunc("/about", func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != "GET" {
+			data := "Error " + strconv.Itoa(http.StatusMethodNotAllowed) + ":  Method not allowed."
+			w.WriteHeader(http.StatusMethodNotAllowed)
+			tmpl2.Execute(w, data)
+			return
+		}
+
+		if r.URL.Path != "/about" {
+			data := "Error " + strconv.Itoa(http.StatusNotFound) + ":  Page not found."
+			w.WriteHeader(http.StatusNotFound)
+			tmpl2.Execute(w, data)
+			return
+		}
+
+		about.Execute(w, nil)
+	})
+	http.HandleFunc("/readme", func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != "GET" {
+			data := "Error " + strconv.Itoa(http.StatusMethodNotAllowed) + ":  Method not allowed."
+			w.WriteHeader(http.StatusMethodNotAllowed)
+			tmpl2.Execute(w, data)
+			return
+		}
+
+		if r.URL.Path != "/readme" {
+			data := "Error " + strconv.Itoa(http.StatusNotFound) + ":  Page not found."
+			w.WriteHeader(http.StatusNotFound)
+			tmpl2.Execute(w, data)
+			return
+		}
+
+		readme.Execute(w, nil)
+	})
+
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("templates"))))
 	fmt.Println("Server started at http://localhost:8080")
 	http.ListenAndServe(":8080", nil)
