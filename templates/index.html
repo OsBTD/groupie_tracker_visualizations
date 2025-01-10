@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Groupie Tracker</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -95,7 +95,7 @@
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         function handleFragmentCheck() {
-            const fragment = decodeURIComponent(window.location.hash.substring(8));
+            const fragment = decodeURIComponent(window.location.hash.slice(8));
             if (fragment) {
                 const artistDetailElement = document.getElementById(`artist-${fragment}`);
                 if (!artistDetailElement) {
