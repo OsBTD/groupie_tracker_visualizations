@@ -6,21 +6,42 @@
 }
 
 body {
-    min-height: 100vh;
     display: grid;
-    grid-template-rows: auto, 1fr;
-    background-image: url('/static/assets/Wallpaper.jpg');
-    background-size: cover;
+    grid-template-rows: minmax(30vh, auto) 1fr;
+    background-image: url('/static/assets/Wallpaper2.png');
     background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    min-height: 100vh;
+    width: 100%;
+    margin: 0;
+    overflow-x: hidden;
 }
+
 
 /*TOP SECTION*/
 .top-section {
-    grid-row: 1;
+    position: relative;
+    width: 100%;
+    padding: 2em 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.Menu {
+    position: relative;
+    display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 0.2%;
-    margin-left: 0.5%;
+    width: 100%;
+    height: auto;
+    background-image: url('/static/assets/Container.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 10;
+    transform: translateY(100%);
 
 }
 
@@ -33,115 +54,79 @@ button {
     cursor: pointer;
 }
 
-.Navbar {
-    display: flex;
-    grid-row: 1;
-}
 
-.Menu {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 70%;
-    height: auto;
-    background-image: url('/static/assets/Navbar_Container.svg');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 70% contain;
-    padding: 1rem;
-    margin: 0 auto;
-}
-
-.Home img,
-.Readme img,
-.About img {
-    width: auto;
-    max-width: 100%;
-}
-
-
-.Title {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    margin-top: -2%;
-    margin-left: 1.5%;
-}
-
-.Home img {
-    width: 90%;
-}
-
-.Readme img {
-    width: 90%;
-}
-
-.About img {
-    width: 90%;
-}
 
 .Home:hover img {
     content: url('/static/assets/Home_Hover.svg');
-    width: 90%;
 }
 
 .Home:active img {
     content: url('/static/assets/Home_Hover.svg');
-    width: 90%;
 
 
 }
 
 .About:hover img {
     content: url('/static/assets/About_Hover.svg');
-    width: 90%;
 
 
 }
 
 .About:active img {
     content: url('/static/assets/About_Hover.svg');
-    width: 90%;
 
 
 }
 
 .Readme:hover img {
     content: url('/static/assets/Readme_Hover.svg');
-    width: 90%;
 
 
 }
 
 .Readme:active img {
     content: url('/static/assets/Readme_Hover.svg');
-    width: 90%;
 
+
+}
+
+
+
+.Title {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translate(1%, -20%);
+}
+
+
+.Title img {
+    width: 150%;
+    height: auto;
+    object-fit: contain;
 
 }
 
 /*Bottom SECTION*/
 
 .bottom-section {
-    background-position: top, left;
+    position: relative;
+    background-color: #333333a2;
     border-radius: 50px;
     grid-row: 2;
-    min-height: 100vh;
     display: grid;
-    grid-template-columns: auto 1fr;
+    grid-template-columns: auto auto;
     gap: 2rem;
     padding: 2rem;
     justify-content: center;
-    align-items: center;
+    align-items: start;
     margin-left: 0.5%;
-    margin-top: -20%;
 }
 
 /* Left section */
 .left-section {
-    margin-top: 50%;
-    width: 600px;
+    width: 30vw;
 }
 
 .cards-container {
@@ -183,13 +168,15 @@ button {
 .right-section {
     background: rgba(255, 255, 255, 0.797);
     border-radius: 12px;
-    padding: 2rem 2rem 2rem 2rem;
-    height: calc(100vh - 4rem);
+    padding: 2rem;
+    width: 60vw;
+    height: 90vh;
     overflow-y: auto;
+    align-self: start;
 }
 
 .artist-details {
-    padding-right: 2rem;
+    padding-right: 1rem;
     display: none;
 }
 
@@ -236,14 +223,8 @@ button {
 .info-section strong {
     color: #555;
 }
-
 .locationsList {
     list-style: none;
-    margin-top: 1rem;
-}
-
-.location {
-    margin-bottom: 1rem;
 }
 
 .datesList {
@@ -262,6 +243,7 @@ button {
     color: #666;
     padding: 2rem;
     font-size: 1.2rem;
+    padding-right: 1rem;
 }
 
 .artist-details:target~#default-message {
@@ -275,111 +257,56 @@ button {
 
 .cards-container::-webkit-scrollbar-track,
 .right-section::-webkit-scrollbar-track {
-    background: #f1f1f1d3;
+    background: #303030d3;
     border-radius: 4px;
+
 }
 
 .cards-container::-webkit-scrollbar-thumb,
 .right-section::-webkit-scrollbar-thumb {
-    background: #888888b9;
+    background: #000000b9;
     border-radius: 4px;
+
 }
 
 
-@media(max-width : 1420px) {
-    body {
-        transform: scale(0.98);
+@media (max-width: 768px) {
+    .Menu {
+        max-width: 90%;
+        padding: 0.5rem;
+    }
+
+    .Title {
+        top: 40%;
+    }
+
+    .Title img {
+        max-width: 80%;
+    }
+
+    button {
+        padding: 0.25rem;
+    }
+
+    button img {
+        max-width: 100px;
     }
 }
 
-@media(max-width : 1350px) {
-    body {
-        transform: scale(0.8);
-    }
-
-    .bottom-section {
-        margin-left: -13vw;
-    }
-}
-
-@media(max-width : 1220px) {
-    body {
-        transform: scale(0.77);
-        margin-top: -20vh;
-    }
-
-    .bottom-section {
-        margin-left: -13vw;
-    }
-
+@media (max-width: 480px) {
     .top-section {
-        margin-left: -10vw;
-    }
-}
-
-@media(max-width : 1100px) {
-    body {
-        transform: scale(0.68);
+        padding: 1rem 0;
     }
 
-    .bottom-section {
-        margin-left: -25vw;
+    .Menu {
+        gap: 0.5rem;
     }
 
-
-}
-
-@media(max-width : 1000px) {
-    body {
-        transform: scale(0.65);
+    button img {
+        max-width: 80px;
     }
 
-    .bottom-section {
-        margin-left: -30vw;
-    }
-
-    .top-section {
-        margin-left: -10vw;
-    }
-}
-
-@media(max-width : 900px) {
-    body {
-        transform: scale(0.55);
-        margin-top: -30vh;
-    }
-
-    .bottom-section {
-        margin-left: -40vw;
-    }
-
-    .top-section {
-        margin-left: -10vw;
-    }
-}
-
-@media(max-width : 500px) {
-    body {
-        transform: scale(0.9);
-        margin-top: -30vh;
-        display: grid;
-        grid-template-rows: auto, auto, auto;
-    }
-
-    .bottom-section {
-        margin-left: -40vw;
-    }
-
-    .top-section {
-        grid-row: 1;
-        margin-left: -10vw;
-    }
-
-    .left-section {
-        grid-row: 2;
-    }
-
-    .right-section {
-        grid-row: 3;
+    .Title img {
+        max-width: 90%;
     }
 }

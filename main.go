@@ -44,27 +44,22 @@ func main() {
     relationsResponse := RelationsResponse{}
     artists := []Artists{}
 
-    // Fetch relations data
     err := fetchData("https://groupietrackers.herokuapp.com/api/relation", &relationsResponse)
     if err != nil {
         fmt.Printf("Error fetching relations: %v\n", err)
         return
     }
 
-    // Fetch artists data
     err2 := fetchData("https://groupietrackers.herokuapp.com/api/artists", &artists)
     if err2 != nil {
         fmt.Printf("Error fetching artists: %v\n", err2)
         return
     }
 
-    // Create a map for quick lookup of relations by ID
     relationsMap := make(map[int]Relations)
     for _, relation := range relationsResponse.Index {
         relationsMap[relation.ID] = relation
     }
-
-    // Combine data into the artists slice
     for i := range artists {
         if relation, found := relationsMap[artists[i].ID]; found {
             artists[i].DatesLocations = relation
