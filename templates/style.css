@@ -128,12 +128,16 @@ button {
 }
 
 .scroll-down img {
-    animation: scrollDown 2s infinite ease-in-out;
+    animation: scrollDown 1.3s infinite ease-in-out;
     width: 6%;
 
 }
 
 /*Bottom SECTION*/
+:root {
+    --element-width: 60vw;
+}
+
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -149,7 +153,7 @@ button {
 
 .bottom-section {
     position: relative;
-    background-color: #0707078f;
+    background-color: #131212d2;
     border-radius: 50px;
     grid-row: 2;
     display: grid;
@@ -213,13 +217,12 @@ button {
 
 /* Right section */
 .right-section {
-    background-image: url('assets/right-container.svg');
-    background-repeat: no-repeat;
+    background: rgba(255, 255, 255, 0.797);
+    border-radius: 12px;
     display: flex;
     flex-direction: column;
-    border-radius: 12px;
     padding: 2rem;
-    width: 60vw;
+    width: var(--element-width);
     height: calc((80px + 2rem) * 10 + 1rem);
     overflow-y: auto;
     align-self: start;
@@ -301,27 +304,13 @@ button {
     display: none;
 }
 
-.cards-container::-webkit-scrollbar,
-.right-section::-webkit-scrollbar {
-    width: 8px;
-    padding-left: 1rem;
-    margin-left: 1rem;
+::-webkit-scrollbar {
+    display: none;
 }
 
-.cards-container::-webkit-scrollbar-track,
-.right-section::-webkit-scrollbar-track {
-    background: #303030d3;
-    border-radius: 4px;
-
+body {
+    scrollbar-width: none;
 }
-
-.cards-container::-webkit-scrollbar-thumb,
-.right-section::-webkit-scrollbar-thumb {
-    background: #000000b9;
-    border-radius: 4px;
-
-}
-
 
 @media (max-width: 768px) {
     .Menu {

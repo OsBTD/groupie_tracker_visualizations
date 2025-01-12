@@ -28,9 +28,12 @@ type RelationsResponse struct {
 	Index []Relations `json:"index"`
 }
 
+var error1 bool
+
 func fetchData(url string, target interface{}) error {
 	response, err := http.Get(url)
 	if err != nil {
+		error1 = true
 		return fmt.Errorf("error making GET request: %w", err)
 	}
 	defer response.Body.Close()
@@ -46,12 +49,14 @@ func main() {
 
 	err := fetchData("https://groupietrackers.herokuapp.com/api/relation", &relationsResponse)
 	if err != nil {
+		error1 = true
 		fmt.Printf("Error fetching relations: %v\n", err)
 		return
 	}
 
 	err2 := fetchData("https://groupietrackers.herokuapp.com/api/artists", &artists)
 	if err2 != nil {
+		error1 = true
 		fmt.Printf("Error fetching artists: %v\n", err2)
 		return
 	}
@@ -78,10 +83,26 @@ func main() {
 		},
 	}
 	artists = append([]Artists{TheWeeknd}, artists...)
-	tmpl := template.Must(template.ParseFiles("templates/index.html"))
-	tmpl2 := template.Must(template.ParseFiles("templates/error.html"))
-	about := template.Must(template.ParseFiles("templates/about.html"))
-	readme := template.Must(template.ParseFiles("templates/readme.html"))
+	tmpl, err := template.ParseFiles("templates/index.html")
+	if err != nil {
+		error1 = true
+		return
+	}
+	tmpl2, err := template.ParseFiles("templates/error.html")
+	if err != nil {
+		error1 = true
+		return
+	}
+	about, err := template.ParseFiles("templates/about.html")
+	if err != nil {
+		error1 = true
+		return
+	}
+	readme, err := template.ParseFiles("templates/readme.html")
+	if err != nil {
+		error1 = true
+		return
+	}
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != "GET" {
@@ -97,7 +118,13 @@ func main() {
 			tmpl2.Execute(w, data)
 			return
 		}
+		if error1 {
+			data := "Error " + strconv.Itoa(http.StatusInternalServerError) + ":  internal server error."
+			w.WriteHeader(http.StatusInternalServerError)
+			tmpl2.Execute(w, data)
+			return
 
+		}
 		tmpl.Execute(w, artists)
 	})
 	http.HandleFunc("/about", func(w http.ResponseWriter, r *http.Request) {
@@ -113,6 +140,13 @@ func main() {
 			w.WriteHeader(http.StatusNotFound)
 			tmpl2.Execute(w, data)
 			return
+		}
+		if error1 {
+			data := "Error " + strconv.Itoa(http.StatusInternalServerError) + ":  internal server error."
+			w.WriteHeader(http.StatusInternalServerError)
+			tmpl2.Execute(w, data)
+			return
+
 		}
 
 		about.Execute(w, nil)
@@ -130,6 +164,13 @@ func main() {
 			w.WriteHeader(http.StatusNotFound)
 			tmpl2.Execute(w, data)
 			return
+		}
+		if error1 {
+			data := "Error " + strconv.Itoa(http.StatusInternalServerError) + ":  internal server error."
+			w.WriteHeader(http.StatusInternalServerError)
+			tmpl2.Execute(w, data)
+			return
+
 		}
 
 		readme.Execute(w, nil)
