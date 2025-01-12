@@ -41,6 +41,9 @@
         <div class="Title">
             <img src="static/assets/Title2.svg">
         </div>
+        <div class="scroll-down">
+            <img src="static/assets/Scroll.svg">
+        </div>
     </div>
     <div class="bottom-section" style="animation: auto-visible 0.1s 0.5s forwards">
         <div class="left-section">
@@ -106,6 +109,20 @@
         handleFragmentCheck();
 
         window.addEventListener('hashchange', handleFragmentCheck);
+
+        const bottomSection = document.querySelector('.bottom-section');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                } else {
+                    entry.target.classList.remove('in-view');
+                }
+            });
+        }, { threshold: 0.5 });
+
+        observer.observe(bottomSection);
     });
 </script>
 
