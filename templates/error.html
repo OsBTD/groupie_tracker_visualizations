@@ -31,8 +31,22 @@
         </a>
 
     </div>
+    {{if .e500}}
+    <div class="error-title">
+        <img src="static/assets/Error500.svg">
+    </div>
+    {{end}}
+    {{if .e400}}
+    <div class="error-title">
+        <img src="static/assets/Error400.svg">
+    </div>
+    {{end}}
+    {{if .e500}}
+    <div class="error-title">
+        <img src="static/assets/Error404.svg">
+    </div>
+    {{end}}
 
-    {{.}}
 </body>
 
 </html>

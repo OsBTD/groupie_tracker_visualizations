@@ -28,12 +28,12 @@ type RelationsResponse struct {
 	Index []Relations `json:"index"`
 }
 
-var error1 bool
+var e404, e400, e500 bool
 
 func fetchData(url string, target interface{}) error {
 	response, err := http.Get(url)
 	if err != nil {
-		error1 = true
+		e500 = true
 		return fmt.Errorf("error making GET request: %w", err)
 	}
 	defer response.Body.Close()
@@ -49,14 +49,14 @@ func main() {
 
 	err := fetchData("https://groupietrackers.herokuapp.com/api/relation", &relationsResponse)
 	if err != nil {
-		error1 = true
+		e500 = true
 		fmt.Printf("Error fetching relations: %v\n", err)
 		return
 	}
 
 	err2 := fetchData("https://groupietrackers.herokuapp.com/api/artists", &artists)
 	if err2 != nil {
-		error1 = true
+		e500 = true
 		fmt.Printf("Error fetching artists: %v\n", err2)
 		return
 	}
@@ -85,22 +85,22 @@ func main() {
 	artists = append([]Artists{TheWeeknd}, artists...)
 	tmpl, err := template.ParseFiles("templates/index.html")
 	if err != nil {
-		error1 = true
+		e500 = true
 		return
 	}
 	tmpl2, err := template.ParseFiles("templates/error.html")
 	if err != nil {
-		error1 = true
+		e500 = true
 		return
 	}
 	about, err := template.ParseFiles("templates/about.html")
 	if err != nil {
-		error1 = true
+		e500 = true
 		return
 	}
 	readme, err := template.ParseFiles("templates/readme.html")
 	if err != nil {
-		error1 = true
+		e500 = true
 		return
 	}
 
@@ -109,6 +109,7 @@ func main() {
 			data := "Error " + strconv.Itoa(http.StatusMethodNotAllowed) + ":  Method not allowed."
 			w.WriteHeader(http.StatusMethodNotAllowed)
 			tmpl2.Execute(w, data)
+			e400 = true
 			return
 		}
 
@@ -116,9 +117,10 @@ func main() {
 			data := "Error " + strconv.Itoa(http.StatusNotFound) + ":  Page not found."
 			w.WriteHeader(http.StatusNotFound)
 			tmpl2.Execute(w, data)
+			e404 = true
 			return
 		}
-		if error1 {
+		if e500 {
 			data := "Error " + strconv.Itoa(http.StatusInternalServerError) + ":  internal server error."
 			w.WriteHeader(http.StatusInternalServerError)
 			tmpl2.Execute(w, data)
@@ -132,6 +134,7 @@ func main() {
 			data := "Error " + strconv.Itoa(http.StatusMethodNotAllowed) + ":  Method not allowed."
 			w.WriteHeader(http.StatusMethodNotAllowed)
 			tmpl2.Execute(w, data)
+			e400 = true
 			return
 		}
 
@@ -139,9 +142,10 @@ func main() {
 			data := "Error " + strconv.Itoa(http.StatusNotFound) + ":  Page not found."
 			w.WriteHeader(http.StatusNotFound)
 			tmpl2.Execute(w, data)
+			e404 = true
 			return
 		}
-		if error1 {
+		if e500 {
 			data := "Error " + strconv.Itoa(http.StatusInternalServerError) + ":  internal server error."
 			w.WriteHeader(http.StatusInternalServerError)
 			tmpl2.Execute(w, data)
@@ -156,6 +160,7 @@ func main() {
 			data := "Error " + strconv.Itoa(http.StatusMethodNotAllowed) + ":  Method not allowed."
 			w.WriteHeader(http.StatusMethodNotAllowed)
 			tmpl2.Execute(w, data)
+			e400 = true
 			return
 		}
 
@@ -163,9 +168,10 @@ func main() {
 			data := "Error " + strconv.Itoa(http.StatusNotFound) + ":  Page not found."
 			w.WriteHeader(http.StatusNotFound)
 			tmpl2.Execute(w, data)
+			e404 = true
 			return
 		}
-		if error1 {
+		if e500 {
 			data := "Error " + strconv.Itoa(http.StatusInternalServerError) + ":  internal server error."
 			w.WriteHeader(http.StatusInternalServerError)
 			tmpl2.Execute(w, data)
