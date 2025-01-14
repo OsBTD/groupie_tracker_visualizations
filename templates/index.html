@@ -107,22 +107,31 @@
         }
 
         handleFragmentCheck();
-
         window.addEventListener('hashchange', handleFragmentCheck);
 
-        const bottomSection = document.querySelector('.bottom-section');
+        // Check screen width before setting up the observer
+        if (window.innerWidth > 480) {  // You can adjust this value
+            const bottomSection = document.querySelector('.bottom-section');
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('in-view');
-                } else {
-                    entry.target.classList.remove('in-view');
-                }
-            });
-        }, { threshold: 0.5 });
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('in-view');
+                    } else {
+                        entry.target.classList.remove('in-view');
+                    }
+                });
+            }, { threshold: 0.5 });
 
-        observer.observe(bottomSection);
+            observer.observe(bottomSection);
+        } else {
+            // For small screens, immediately show the bottom section
+            const bottomSection = document.querySelector('.bottom-section');
+            if (bottomSection) {
+                bottomSection.style.opacity = '1';
+                bottomSection.style.transform = 'none';
+            }
+        }
     });
 </script>
 
