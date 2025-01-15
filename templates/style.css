@@ -60,11 +60,6 @@ button {
     content: url('/static/assets/Home_Hover.svg');
 }
 
-.Home:active img {
-    content: url('/static/assets/Home_Hover.svg');
-
-
-}
 
 .About:hover img {
     content: url('/static/assets/About_Hover.svg');
@@ -72,22 +67,21 @@ button {
 
 }
 
-.About:active img {
-    content: url('/static/assets/About_Hover.svg');
-
-
-}
 
 .Readme:hover img {
     content: url('/static/assets/Readme_Hover.svg');
-
-
 }
 
-.Readme:active img {
+body.Home-Page .Home img {
+    content: url('/static/assets/Home_Hover.svg');
+}
+
+body.About-Page .About img {
+    content: url('/static/assets/About_Hover.svg');
+}
+
+body.Readme-Page .Readme img {
     content: url('/static/assets/Readme_Hover.svg');
-
-
 }
 
 
@@ -327,24 +321,6 @@ body {
         width: 120%;
     }
 
-    .top-section {
-        min-height: 40vh;
-        padding: 3em 0;
-    }
-
-    .Menu {
-        width: 60%;
-        transform: translateY(120%);
-    }
-
-    button {
-        padding: 1.5rem;
-    }
-
-    button img {
-        width: 120px;
-        height: auto;
-    }
 }
 
 /* Standard Desktop (1440px - 1920px) */
@@ -358,24 +334,6 @@ body {
         gap: 3rem;
     }
 
-    .top-section {
-        min-height: 35vh;
-        padding: 2.5em 0;
-    }
-
-    .Menu {
-        width: 65%;
-        transform: translateY(110%);
-    }
-
-    button {
-        padding: 1.3rem;
-    }
-
-    button img {
-        width: 110px;
-        height: auto;
-    }
 }
 
 /* Smaller Desktop/Larger Laptop (1200px - 1439px) */
