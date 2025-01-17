@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Error</title>
+    <title>Error {{.Code}}</title>
 </head>
 
 <body>
@@ -12,40 +12,29 @@
         <a href="/">
             <button type="button" class="Home">
                 <img src="static/assets/Home.svg">
-
             </button>
         </a>
-
         <a href="/about">
             <button type="button" class="About">
                 <img src="static/assets/About.svg">
-
             </button>
         </a>
-
         <a href="/readme">
             <button type="button" class="Readme">
                 <img src="static/assets/Readme.svg">
             </button>
-
         </a>
+    </div>
 
-    </div>
-    {{if .e500}}
     <div class="error-title">
-        <img src="static/assets/Error500.svg">
-    </div>
-    {{end}}
-    {{if .e400}}
-    <div class="error-title">
+        {{if .Is400}}
         <img src="static/assets/Error400.svg">
-    </div>
-    {{end}}
-    {{if .e500}}
-    <div class="error-title">
+        {{else if .Is404}}
         <img src="static/assets/Error404.svg">
+        {{else if .Is500}}
+        <img src="static/assets/Error500.svg">
+        {{end}}
     </div>
-    {{end}}
 
 </body>
 
