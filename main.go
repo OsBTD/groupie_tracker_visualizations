@@ -35,7 +35,7 @@ type RelationsResponse struct {
 type ErrorPage struct {
 	Code    int
 	Message string
-	Is400   bool
+	Is405   bool
 	Is404   bool
 	Is500   bool
 }
@@ -51,7 +51,6 @@ func fetchData(url string, target interface{}) error {
 	if response.StatusCode != http.StatusOK {
 		return fmt.Errorf("received non-200 response code: %d", response.StatusCode)
 	}
-
 	return json.NewDecoder(response.Body).Decode(target)
 }
 
@@ -60,7 +59,7 @@ func handleError(w http.ResponseWriter, tmpl *template.Template, code int, messa
 	errorPage := ErrorPage{
 		Code:    code,
 		Message: message,
-		Is400:   code == http.StatusBadRequest || code == http.StatusMethodNotAllowed,
+		Is405:   code == http.StatusMethodNotAllowed,
 		Is404:   code == http.StatusNotFound,
 		Is500:   code == http.StatusInternalServerError,
 	}
@@ -109,7 +108,8 @@ func main() {
 		relationsMap[relation.ID] = relation
 	}
 	for i := range artists {
-		if relation, found := relationsMap[artists[i].ID]; found {
+		relation, found := relationsMap[artists[i].ID]
+		if found {
 			artists[i].DatesLocations = relation
 		}
 	}
@@ -127,7 +127,7 @@ func main() {
 			DatesLocations: map[string][]string{
 				"new_york_usa":   {"27-11-2016", "26-11-2016"},
 				"toronto_canada": {"05-09-2016", "04-09-2016"},
-				"oujda_morocco": {"02-12-2016", "01-12-2016"},
+				"oujda_morocco":  {"02-12-2016", "01-12-2016"},
 			},
 		},
 	}

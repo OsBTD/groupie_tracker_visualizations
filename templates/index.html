@@ -97,9 +97,9 @@
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         function handleFragmentCheck() {
-            const fragment = decodeURIComponent(window.location.hash.slice(8));
+            const fragment = decodeURIComponent(window.location.hash.slice(1));
             if (fragment) {
-                const artistDetailElement = document.getElementById(`artist-${fragment}`);
+                const artistDetailElement = document.getElementById(`${fragment}`);
                 if (!artistDetailElement) {
                     window.location.href = "/notfound";
                 }
